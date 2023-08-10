@@ -10,9 +10,16 @@ const handler = async (req: NextRequest) => {
     const { objective, websearch_var, user_input_var, model_name, language } =
       await req.json();
 
+    const azureDeployNames: { [key: string]: string; } = {
+        // 'gpt-3.5-turbo-0613': 'gpt-35-0613',
+        'gpt-3.5-turbo-0613': 'gpt-35-16k',
+        'gpt-4-0613': 'gpt-4-0613-32k',
+      }
+
+    process.env['AZURE_OPENAI_API_DEPLOYMENT_NAME'] = azureDeployNames[model_name]
+
     const azureOpenAIApiKey = process.env.AZURE_OPENAI_API_KEY
     const azureOpenAIApiInstanceName = process.env.AZURE_OPENAI_API_INSTANCE_NAME
-    const azureOpenAIApiDeploymentName = process.env.AZURE_OPENAI_API_DEPLOYMENT_NAME
     const azureOpenAIApiVersion = process.env.AZURE_OPENAI_API_VERSION
 
     const llm = new ChatOpenAI({
