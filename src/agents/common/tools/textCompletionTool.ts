@@ -42,7 +42,7 @@ export const textCompletionTool = async (
           console.log(error.message);
         }
       });
-    return response?.data?.response.text;
+    return response?.data?.response.kwargs.content;
   }
 
   const llm = new ChatOpenAI(
