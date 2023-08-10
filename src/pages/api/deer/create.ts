@@ -10,6 +10,11 @@ const handler = async (req: NextRequest) => {
     const { objective, websearch_var, user_input_var, model_name, language } =
       await req.json();
 
+    const azureOpenAIApiKey = process.env.AZURE_OPENAI_API_KEY
+    const azureOpenAIApiInstanceName = process.env.AZURE_OPENAI_API_INSTANCE_NAME
+    const azureOpenAIApiDeploymentName = process.env.AZURE_OPENAI_API_DEPLOYMENT_NAME
+    const azureOpenAIApiVersion = process.env.AZURE_OPENAI_API_VERSION
+
     const llm = new ChatOpenAI({
       modelName: model_name,
       temperature: 0,
